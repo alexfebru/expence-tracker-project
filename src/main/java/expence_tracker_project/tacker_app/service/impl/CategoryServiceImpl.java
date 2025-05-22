@@ -1,6 +1,7 @@
 package expence_tracker_project.tacker_app.service.impl;
 
 import expence_tracker_project.tacker_app.dto.CategoryDto;
+import expence_tracker_project.tacker_app.exception.ResourceNotFoundException;
 import expence_tracker_project.tacker_app.mapper.CategoryMapper;
 import expence_tracker_project.tacker_app.model.Category;
 import expence_tracker_project.tacker_app.repository.CategoryRepository;
@@ -37,7 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category getCategoryById = categoryRepository
                 .findById(categoryId)
                 .orElseThrow(
-                        ()-> new RuntimeException("Category not found with id: " + categoryId));
+                        ()-> new ResourceNotFoundException("Category not found with id: " + categoryId));
 
         return CategoryMapper.mapToCategoryDto(getCategoryById);
 
@@ -59,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(
-                    ()-> new RuntimeException("Category not found with id: " + categoryId)
+                    ()-> new ResourceNotFoundException("Category not found with id: " + categoryId)
         );
 
         category.setName(categoryDto.name());
@@ -70,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto deleteCategory(UUID categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(
-                ()-> new RuntimeException("Category not found with id: " + categoryId)
+                ()-> new ResourceNotFoundException("Category not found with id: " + categoryId)
         );
 
         categoryRepository.delete(category);
