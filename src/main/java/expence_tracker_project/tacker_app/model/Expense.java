@@ -1,5 +1,6 @@
 package expence_tracker_project.tacker_app.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import java.util.UUID;
 
 
@@ -26,8 +28,9 @@ public class Expense {
     @Column(nullable = false)
     private BigDecimal amount;
 
+
     @Column(nullable = false)
-    private LocalDateTime expenseDate;
+    private LocalDate expenseDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
